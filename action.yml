@@ -32,6 +32,9 @@ runs:
     - name: Install Cloudron CLI
       run: npm i -g cloudron
       shell: bash
+    - name: ls
+      run: ls
+      shell: bash
     - name: Install/Update App
       run: installOrUpdate.sh ${{ inputs.docker-image }} ${{ inputs.app-domain }} ${{ inputs.cloudron-server }} ${{ inputs.cloudron-token }} ${{ inputs.install-if-missing }}
       shell: bash
