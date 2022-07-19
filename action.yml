@@ -1,0 +1,37 @@
+name: "Cloudron Deploy"
+description: "Deploy a Docker image to Cloudron"
+branding:
+  icon: "upload-cloud"
+  color: "blue"
+author: "Ross MacLean"
+inputs:
+  image:
+    description: "Docker image to be deployed to Cloudron"
+    required: true
+  app-domain:
+    description: "Domain where the app should be installed/updated in Cloudron e.g. myapp.server.com"
+    required: true
+  cloudron-server:
+    description: "Cloudron server e.g. my.server.com"
+    required: true
+  cloudron-token:
+    description: "Cloudron auth token"
+    required: true
+  install-if-missing:
+    description: "Should the app be installed if not currently? False results in using update only. true/false"
+    required: true
+    default: "true"
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 15.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 15.x
+    - name: Install Cloudron CLI
+      run: npm i -g cloudron
+      shell: bash
+    - name: Install/Update App
+      run: installOrUpdate.sh ${{ inputs.docker-image }} ${{ inputs.app-domain }} ${{ inputs.cloudron-server }} ${{ inputs.cloudron-token }} ${{ inputs.install-if-missing }}
+      shell: bash
