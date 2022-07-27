@@ -18,7 +18,7 @@ inputs:
     description: "Cloudron auth token"
     required: true
   install-if-missing:
-    description: "Should the app be installed if not currently? False results in using update only. true/false"
+    description: "Should the app be installed if not currently? False results in using update only."
     required: true
     default: "true"
 runs:
