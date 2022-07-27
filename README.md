@@ -32,3 +32,9 @@ Cloudron auth token
 - **Default**: "true"
 
 Should the app be installed if not currently? False results in using update only. `true/false`
+
+### Environment
+- **Key**: environment
+- **Required**: false
+
+Environment variables to be set. Note that this does not clear currently set environment variables which are not overwritten.
