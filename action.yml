@@ -35,9 +35,6 @@ runs:
     - name: Install Cloudron CLI
       run: npm i -g cloudron
       shell: bash
-    - name: ls
-      run: ls
-      shell: bash
     - name: Install/Update App
       run: ${{ github.action_path }}/installOrUpdate.sh ${{ inputs.image }} ${{ inputs.app-domain }} ${{ inputs.cloudron-server }} ${{ inputs.cloudron-token }} ${{ inputs.install-if-missing }} ${{ inputs.environment }}
       shell: bash
