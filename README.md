@@ -44,4 +44,6 @@ When true, the app will not be backup up when updating
 - **Key**: environment
 - **Required**: false
 
-Environment variables to be set in format `KEY1=Val1 KEY2=Val2`. Note that this does not clear currently set environment variables which are not overwritten.
+**NOTE**: The variables are not masked in the logs, unless you pass in something like ${{ secrets.environment }}
+
+Environment variables to be set in format `KEY1=Val1 KEY2=Val2`. This does not clear currently set environment variables which are not overwritten.
