@@ -36,6 +36,9 @@ runs:
       uses: actions/setup-node@v1
       with:
         node-version: 15.x
+    - name: Add Environment mask
+      run: echo "::add-mask::${{ inputs.environment }}"
+      shell: bash
     - name: Install Cloudron CLI
       run: npm i -g cloudron
       shell: bash
