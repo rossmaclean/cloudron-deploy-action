@@ -8,10 +8,21 @@ INSTALL_IF_MISSING=$5
 SKIP_BACKUP=$6
 ENV_VARS=$7
 
-function installOrUpdate() {
+function setEnvVars() {
+  if [ -n "$ENV_VARS" ]; then
+    echo "Setting environment variables"
+    IFS=';'
+    read -ra vars <<< "$ENV_VARS"
+    for var in "${vars[@]}";
+    do
+     IFS='='
+     read -ra keyval <<< "$var"
+     echo "Setting var $keyval[0] to $keyval[1]"
+    done
+  fi
+}
 
-  echo "ENV Vars:"
-  echo $ENV_VARS
+function installOrUpdate() {
 #  APP_EXISTS=$(cloudron list --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN | grep $APP_DOMAIN | wc -l)
 #  echo "APP_ALREADY_INSTALLED=$APP_EXISTS" >>$GITHUB_ENV
 #
@@ -31,6 +42,8 @@ function installOrUpdate() {
 #      cloudron update --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN --app $APP_DOMAIN --image $DOCKER_IMAGE
 #    fi
 #  fi
+
+  setEnvVars
 }
 
 installOrUpdate
