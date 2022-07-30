@@ -22,9 +22,9 @@ function installOrUpdate() {
     echo "App exists, updating"
     if [ "$SKIP_BACKUP" = "true" ]; then
       echo "SKIP_BACKUP is true, skipping backup"
-      cloudron install --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN --location $APP_DOMAIN --image $DOCKER_IMAGE
-    else
       cloudron update --no-backup --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN --app $APP_DOMAIN --image $DOCKER_IMAGE
+    else
+      cloudron update --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN --app $APP_DOMAIN --image $DOCKER_IMAGE
     fi
   fi
 }
