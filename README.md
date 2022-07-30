@@ -33,8 +33,18 @@ Cloudron auth token
 
 Should the app be installed if not currently? False results in using update only. `true/false`
 
-### Environment
-- **Key**: environment
+### Skip Backup
+- **Key**: skip-backup
 - **Required**: false
+- **Default**: "false"
 
-Environment variables to be set. Note that this does not clear currently set environment variables which are not overwritten.
+When true, the app will not be backup up when updating
+
+[//]: # (### Environment)
+
+[//]: # (- **Key**: environment)
+
+[//]: # (- **Required**: false)
+
+[//]: # ()
+[//]: # (Environment variables to be set. Note that this does not clear currently set environment variables which are not overwritten.)

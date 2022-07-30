@@ -5,17 +5,9 @@ APP_DOMAIN=$2
 CLOUDRON_SERVER=$3
 CLOUDRON_TOKEN=$4
 INSTALL_IF_MISSING=$5
+SKIP_BACKUP=$6
 
 function installOrUpdate() {
-  echo "cloudron list"
-  echo $(cloudron list --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN)
-
-  echo "cloudron list with grep"
-  echo $(cloudron list --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN | grep $APP_DOMAIN)
-
-  echo "cloudron list with grep and wc"
-  echo $(cloudron list --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN | grep $APP_DOMAIN | wc -l)
-
   APP_EXISTS=$(cloudron list --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN | grep $APP_DOMAIN | wc -l)
   echo "APP_ALREADY_INSTALLED=$APP_EXISTS" >>$GITHUB_ENV
 
@@ -28,7 +20,12 @@ function installOrUpdate() {
     fi
   else
     echo "App exists, updating"
-    cloudron update --no-backup --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN --app $APP_DOMAIN --image $DOCKER_IMAGE
+    if [ "$SKIP_BACKUP" = "true" ]; then
+      echo "SKIP_BACKUP is true, skipping backup"
+      cloudron install --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN --location $APP_DOMAIN --image $DOCKER_IMAGE
+    else
+      cloudron update --no-backup --server $CLOUDRON_SERVER --token $CLOUDRON_TOKEN --app $APP_DOMAIN --image $DOCKER_IMAGE
+    fi
   fi
 }
 

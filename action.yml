@@ -21,6 +21,10 @@ inputs:
     description: "Should the app be installed if not currently? False results in using update only."
     required: false
     default: "false"
+  skip-backup:
+    description: "When true, the app will not be backup up when updating."
+    required: false
+    default: "false"
   environment:
     description: "Environment variables to be set. Note that this does not clear currently set environment variables which are not overwritten."
     required: false
@@ -36,5 +40,5 @@ runs:
       run: npm i -g cloudron
       shell: bash
     - name: Install/Update App
-      run: ${{ github.action_path }}/installOrUpdate.sh ${{ inputs.image }} ${{ inputs.app-domain }} ${{ inputs.cloudron-server }} ${{ inputs.cloudron-token }} ${{ inputs.install-if-missing }} ${{ inputs.environment }}
+      run: ${{ github.action_path }}/installOrUpdate.sh ${{ inputs.image }} ${{ inputs.app-domain }} ${{ inputs.cloudron-server }} ${{ inputs.cloudron-token }} ${{ inputs.install-if-missing }} ${{ inputs.skip-backup }} ${{ inputs.environment }}
       shell: bash
