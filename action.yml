@@ -44,12 +44,5 @@ runs:
       with:
         python-version: '3.10'
     - name: Install/Update App
-      run: python ${{ github.action_path }}/installOrUpdate.py \
-        --docker-image "${{ inputs.image }}" \
-        --app-domain "${{ inputs.app-domain }}" \
-        --cloudron-server "${{ inputs.cloudron-server }}" \
-        --cloudron-token "${{ inputs.cloudron-token }}" \ 
-        --install-if-missing "${{ inputs.install-if-missing }}" \
-        --skip-backup "${{ inputs.skip-backup }}" \
-        --env-vars "${{ inputs.environment }}"
+      run: python ${{ github.action_path }}/installOrUpdate.py --docker-image "${{ inputs.image }}" --app-domain "${{ inputs.app-domain }}" --cloudron-server "${{ inputs.cloudron-server }}" --cloudron-token "${{ inputs.cloudron-token }}" --install-if-missing "${{ inputs.install-if-missing }}" --skip-backup "${{ inputs.skip-backup }}" --env-vars "${{ inputs.environment }}"
       shell: bash
