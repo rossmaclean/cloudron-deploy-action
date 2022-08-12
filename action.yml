@@ -39,6 +39,16 @@ runs:
     - name: Install Cloudron CLI
       run: npm i -g cloudron
       shell: bash
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
     - name: Install/Update App
-      run: ${{ github.action_path }}/installOrUpdate.sh "${{ inputs.image }}" "${{ inputs.app-domain }}" "${{ inputs.cloudron-server }}" "${{ inputs.cloudron-token }}" "${{ inputs.install-if-missing }}" "${{ inputs.skip-backup }}" "${{ inputs.environment }}"
+      run: python ${{ github.action_path }}/installOrUpdate.py \
+        --docker-image "${{ inputs.image }}" \
+        --app-domain "${{ inputs.app-domain }}" \
+        --cloudron-server "${{ inputs.cloudron-server }}" \
+        --cloudron-token "${{ inputs.cloudron-token }}" \ 
+        --install-if-missing "${{ inputs.install-if-missing }}" \
+        --skip-backup "${{ inputs.skip-backup }}" \
+        --env-vars "${{ inputs.environment }}"
       shell: bash
