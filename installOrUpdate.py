@@ -70,7 +70,7 @@ def install_or_update(docker_image, app_domain, cloudron_server, cloudron_token,
 
 
 def set_env(env_vars, cloudron_server, cloudron_token, app_domain):
-    if env_vars:
+    if env_vars != 'NONE':
         print('Setting environment variables')
         command = 'cloudron env set {0} --server {1} --token {2} --app {3}'.format(env_vars, cloudron_server,
                                                                                    cloudron_token, app_domain)

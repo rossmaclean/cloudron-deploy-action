@@ -28,6 +28,7 @@ inputs:
   environment:
     description: "Environment variables to be set in format `KEY1=Val1 KEY2=Val2`. Note that this does not clear currently set environment variables which are not overwritten."
     required: false
+    default: "NONE"
 runs:
   using: composite
   steps:

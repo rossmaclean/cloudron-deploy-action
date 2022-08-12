@@ -43,6 +43,7 @@ When true, the app will not be backup up when updating
 ### Environment
 - **Key**: environment
 - **Required**: false
+- **Default**L "NONE"
 
 **NOTE**: The variables are not masked in the logs, unless you pass in something like ${{ secrets.environment }}
 
