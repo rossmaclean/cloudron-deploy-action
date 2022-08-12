@@ -1,5 +1,5 @@
 import argparse
-import os
+import subprocess
 
 
 def parse_arguments():
@@ -22,28 +22,43 @@ def parse_arguments():
 
 def check_if_exists(cloudron_server, cloudron_token, app_domain):
     print('Checking if app exists')
-    command = 'cloudron list --server {0} --token {1} | grep {2} | wc -l'.format(
-        cloudron_server, cloudron_token, app_domain)
-    output = os.popen(command)
-    return True if output.read() == 1 else False
+    result = subprocess.run(['cloudron', 'list',
+                             '--server', cloudron_server,
+                             '--token', cloudron_token], capture_output=True, text=True, check=True)
+
+    for app_line in result.stdout.split('\n'):
+        if app_domain in app_line:
+            return True
+    return False
 
 
 def update_app(skip_backup, cloudron_server, cloudron_token, app_domain, docker_image):
-    if skip_backup:
-        snippet = '--no-backup'
-    else:
-        snippet = ''
+    snippet = '--no-backup' if skip_backup else ''
 
-    command = 'cloudron update {0} --server {1} --token {2} --app {3} --image {4}'.format(
-        snippet, cloudron_server, cloudron_token, app_domain, docker_image)
-
-    os.system(command)
+    subprocess.run(['cloudron', 'update',
+                    snippet,
+                    '--server', cloudron_server,
+                    '--token', cloudron_token,
+                    '--app', app_domain,
+                    '--image', docker_image], check=True)
 
 
 def install_app(cloudron_server, cloudron_token, app_domain, docker_image):
-    command = 'cloudron install --server {0} --token {1} --location {2} --image {3}'.format(
-        cloudron_server, cloudron_token, app_domain, docker_image)
-    os.system(command)
+    subprocess.run(['cloudron', 'install',
+                    '--server', cloudron_server,
+                    '--token', cloudron_token,
+                    '--location', app_domain,
+                    '--image', docker_image], check=True)
+
+
+def set_env(env_vars, cloudron_server, cloudron_token, app_domain):
+    if env_vars != 'NONE':
+        print('Setting environment variables')
+        subprocess.run(['cloudron', 'env',
+                        'set', env_vars,
+                        '--server', cloudron_server,
+                        '--token', cloudron_token,
+                        '--app', app_domain], check=True)
 
 
 def install_or_update(docker_image, app_domain, cloudron_server, cloudron_token, install_if_missing, skip_backup):
@@ -67,14 +82,6 @@ def install_or_update(docker_image, app_domain, cloudron_server, cloudron_token,
                    cloudron_token=cloudron_token,
                    app_domain=app_domain,
                    docker_image=docker_image)
-
-
-def set_env(env_vars, cloudron_server, cloudron_token, app_domain):
-    if env_vars != 'NONE':
-        print('Setting environment variables')
-        command = 'cloudron env set {0} --server {1} --token {2} --app {3}'.format(env_vars, cloudron_server,
-                                                                                   cloudron_token, app_domain)
-        os.system(command)
 
 
 if __name__ == '__main__':
