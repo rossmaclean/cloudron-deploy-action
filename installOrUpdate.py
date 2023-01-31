@@ -52,7 +52,7 @@ def install_app(cloudron_server, cloudron_token, app_domain, docker_image):
 
 
 def set_env(env_vars, cloudron_server, cloudron_token, app_domain):
-    if env_vars != 'NONE':
+    if env_vars != 'NONE' and env_vars != '':
         print('Setting environment variables')
         subprocess.run(['cloudron', 'env',
                         'set', env_vars,
