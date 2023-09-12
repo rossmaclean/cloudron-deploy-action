@@ -29,6 +29,10 @@ inputs:
     description: "Environment variables to be set in format `KEY1=Val1 KEY2=Val2`. Note that this does not clear currently set environment variables which are not overwritten."
     required: false
     default: "NONE"
+  registry:
+    description: "Docker registry URL"
+    required: false
+    default: "docker.io"
 runs:
   using: composite
   steps:
@@ -44,5 +48,5 @@ runs:
       with:
         python-version: '3.10'
     - name: Install/Update App
-      run: python ${{ github.action_path }}/installOrUpdate.py --docker-image "${{ inputs.image }}" --app-domain "${{ inputs.app-domain }}" --cloudron-server "${{ inputs.cloudron-server }}" --cloudron-token "${{ inputs.cloudron-token }}" --install-if-missing "${{ inputs.install-if-missing }}" --skip-backup "${{ inputs.skip-backup }}" --env-vars "${{ inputs.environment }}"
+      run: python ${{ github.action_path }}/installOrUpdate.py --docker-image "${{ inputs.image }}" --app-domain "${{ inputs.app-domain }}" --cloudron-server "${{ inputs.cloudron-server }}" --cloudron-token "${{ inputs.cloudron-token }}" --install-if-missing "${{ inputs.install-if-missing }}" --skip-backup "${{ inputs.skip-backup }}" --env-vars "${{ inputs.environment }}" --registry "${{ inputs.registry }}"
       shell: bash
