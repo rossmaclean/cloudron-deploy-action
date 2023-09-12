@@ -15,6 +15,7 @@ def parse_arguments():
     parser.add_argument('-b', '--skip-backup', action='store', required=False, help='Skip backup before updating')
     parser.add_argument('-e', '--env-vars', action='store', required=False,
                         help='Environment variables to set in the container')
+    parser.add_argument('-r', '--registry', action='store', required=False, help='Docker registry URL')
 
     args = parser.parse_args()
     return args
@@ -87,7 +88,7 @@ def install_or_update(docker_image, app_domain, cloudron_server, cloudron_token,
 if __name__ == '__main__':
     args = parse_arguments()
 
-    install_or_update(docker_image=args.docker_image,
+    install_or_update(docker_image=args.registry + '/' + args.docker_image,
                       app_domain=args.app_domain,
                       cloudron_server=args.cloudron_server,
                       cloudron_token=args.cloudron_token,
