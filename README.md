@@ -1,4 +1,10 @@
 # Cloudron Deploy Action
+
+<p align="center">
+  <img alt="GitHub release version" src="https://img.shields.io/github/v/release/rossmaclean/cloudron-deploy-action">
+  <img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2026">
+</p>
+
 This actions deploys a Docker image to a Cloudron server.
 
 ## Arguments
