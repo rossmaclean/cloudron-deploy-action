@@ -44,7 +44,7 @@ runs:
     - name: Install Cloudron CLI
       run: npm i -g cloudron
       shell: bash
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v6
       with:
         python-version: '3.10'
     - name: Install/Update App
